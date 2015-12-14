@@ -15,7 +15,7 @@ Planned -> the ability to add as Gradle module.
 License
 -----------
 
-    Copyright 2013 Flavien Laurent
+    Copyright 2013 MaelStrom 
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -29,3 +29,7 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
   
+Note
+-----
+
+The original repo is [here](https://github.com/flavienlaurent/PanningView) but it looks abandoned since 2014. So, Maelstrom decided  to take it and support it as a Gradle module and further changes in the future. We are retaining the same license as used by @flavienlaurent.
