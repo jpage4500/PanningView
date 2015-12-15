@@ -1,21 +1,35 @@
 PanningView
 ==================
 
-PanningView is a library which implements the animated background in the now playing screen of the Play Music app.
+PanningView is a library which implements the animated background in the *Now Playing* screen of the Play Music app.
 
 Planned -> Sample APK either at Releases or Google Play Store.
 
 Including in your project
 -------------------------
 
-Add the library to your application as a library project.
+Make sure that you have `jCenter` repository in your project's `build.gradle` file
 
-Planned -> the ability to add as Gradle module.
+```
+buildscript {
+    repositories {
+		jcenter()
+	}
+
+```
+
+Add this line in your `app/build.gradle` file to include the library.
+
+
+```
+	compile 'com.maelstrom.panning:panning-view:1.0.1'
+
+```
 
 License
 -----------
 
-    Copyright 2013 MaelStrom 
+    Copyright 2013 MaelStromJS 
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,4 +46,4 @@ License
 Note
 -----
 
-The original repo is [here](https://github.com/flavienlaurent/PanningView) but it looks abandoned since 2014. So, Maelstrom decided  to take it and support it as a Gradle module and further changes in the future. We are retaining the same license as used by @flavienlaurent.
+The original repo is [here](https://github.com/flavienlaurent/PanningView) but it looks abandoned since 2014. So, MaelstromJS has decided to take it and support it as a Gradle module and probably make further changes in the future. We are retaining the same license as used by [@flavienlaurent](https://github.com/flavienlaurent).
