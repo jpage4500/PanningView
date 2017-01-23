@@ -1,15 +1,14 @@
 package com.maelstrom.panning;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 
 
 public class PanningImageViewAttacher {
@@ -73,15 +72,23 @@ public class PanningImageViewAttacher {
 			public void onAnimationEnd (Animator animation) {
 				Log.d (TAG, "animation has finished, startPanning in the other way");
 				changeWay ();
-				mCurrentPlayTime = 0;
-				mTotalTime = 0;
-
-				animationController ();
+				final Runnable panningRunnable = new Runnable () {
+					@Override
+					public void run () {
+						animationController ();
+					}
+				};
+				getImageView ().post (panningRunnable);
 			}
 
 			@Override
 			public void onAnimationCancel (Animator animation) {
 				Log.d(TAG, "panning animation canceled");
+			}
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+				Log.d(TAG, "panning animation started");
 			}
 		});
 
@@ -96,13 +103,13 @@ public class PanningImageViewAttacher {
 
 		update ();
 
-		mImageView.addOnLayoutChangeListener (new View.OnLayoutChangeListener () {
-			@Override
-			public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-				Log.d(TAG, "onLayoutChange");
-				//update ();
-			}
-		});
+//		mImageView.addOnLayoutChangeListener (new View.OnLayoutChangeListener () {
+//			@Override
+//			public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//				Log.d(TAG, "onLayoutChange");
+//				update ();
+//			}
+//		});
 	}
 
 	/**
@@ -165,6 +172,7 @@ public class PanningImageViewAttacher {
 	 * This is automatically called if you are using {@link PanningImageView}.
 	 */
 	public final void cleanup() {
+		Log.d (TAG, "cleanup");
 
 		stopPanning();
 
@@ -220,9 +228,9 @@ public class PanningImageViewAttacher {
 		if (mPanningDirection == null)
 			mPanningDirection = mIsPortrait ? panningDirection.R2L : panningDirection.B2T;
 
-		Log.d (TAG, String.format ("mPanningDirection : %s\n mDisplayRect : %s", mPanningDirection, mDisplayRect));
-
 		long remainingDuration = mDuration - mTotalTime;
+
+		Log.d (TAG, String.format ("animationController: mPanningDirection : %s, mDisplayRect : %s, duration : %d", mPanningDirection, mDisplayRect, remainingDuration));
 
 		if (mIsPortrait)
 			if (mPanningDirection == panningDirection.R2L)
@@ -258,6 +266,7 @@ public class PanningImageViewAttacher {
 		}
 		mCurrentPlayTime = 0;
 		mTotalTime = 0;
+		Log.e (TAG, "changeWay: mPanningDirection is " + mPanningDirection);
 	}
 
 	private void animateImage (float start, float end, long duration) {
