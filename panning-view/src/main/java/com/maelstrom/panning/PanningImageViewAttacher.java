@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -41,7 +40,7 @@ public class PanningImageViewAttacher {
 	private boolean mIsPortrait,
 					mIsPanning;
 
-	public PanningImageViewAttacher (@NonNull ImageView imageView, long duration) {
+	public PanningImageViewAttacher (ImageView imageView, long duration) {
 
 		if(!hasDrawable(imageView))
 			throw new IllegalArgumentException ("Please define the src attribute of the ImageView");
