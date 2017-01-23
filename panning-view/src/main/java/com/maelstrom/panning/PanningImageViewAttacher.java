@@ -99,7 +99,8 @@ public class PanningImageViewAttacher {
 		mImageView.addOnLayoutChangeListener (new View.OnLayoutChangeListener () {
 			@Override
 			public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-				update ();
+				Log.d(TAG, "onLayoutChange");
+				//update ();
 			}
 		});
 	}
@@ -107,7 +108,7 @@ public class PanningImageViewAttacher {
 	/**
 	 *
 	 */
-	public void update () {
+	private void update () {
 		mPanningDirection = null;
 		mTotalTime = 0;
 		mCurrentPlayTime = 0;
@@ -153,6 +154,8 @@ public class PanningImageViewAttacher {
 		}
 		mTotalTime += mCurrentPlayTime;
 		Log.d (TAG, "mTotalTime : " + mTotalTime);
+
+		update();
 	}
 
 	/**
