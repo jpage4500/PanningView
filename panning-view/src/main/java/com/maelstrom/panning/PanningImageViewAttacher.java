@@ -233,20 +233,12 @@ public class PanningImageViewAttacher {
 		Log.d (TAG, String.format ("animationController: mPanningDirection : %s, mDisplayRect : %s, duration : %d", mPanningDirection, mDisplayRect, remainingDuration));
 
 		if (mIsPortrait) {
-			if (mIsPortrait) {
-				float end = mDisplayRect.left - (mDisplayRect.right - getImageViewWidth());
-				if (mPanningDirection == panningDirection.R2L)
-					animateImage(0, end, remainingDuration);
-				else
-					animateImage(end, 0, remainingDuration);
-			} else {
-				if (mPanningDirection == panningDirection.B2T)
-					animateImage(mDisplayRect.top, mDisplayRect.top - (mDisplayRect.bottom - getImageViewHeight()), remainingDuration);
-				else
-					animateImage(mDisplayRect.top, 0.0f, remainingDuration);
-			}
-		}
-		else {
+			float end = mDisplayRect.left - (mDisplayRect.right - getImageViewWidth());
+			if (mPanningDirection == panningDirection.R2L)
+				animateImage(0, end, remainingDuration);
+			else
+				animateImage(end, 0, remainingDuration);
+		} else {
 			if (mPanningDirection == panningDirection.B2T)
 				animateImage(mDisplayRect.top, mDisplayRect.top - (mDisplayRect.bottom - getImageViewHeight()), remainingDuration);
 			else
