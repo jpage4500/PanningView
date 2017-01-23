@@ -231,16 +231,20 @@ public class PanningImageViewAttacher {
 
 		Log.d (TAG, String.format ("animationController: mPanningDirection : %s, mDisplayRect : %s, duration : %d", mPanningDirection, mDisplayRect, remainingDuration));
 
-		if (mIsPortrait)
+		if (mIsPortrait) {
+			float start = mDisplayRect.left;
+			float end = mDisplayRect.left - (mDisplayRect.right - getImageViewWidth());
 			if (mPanningDirection == panningDirection.R2L)
-				animateImage (mDisplayRect.left, mDisplayRect.left - (mDisplayRect.right - getImageViewWidth ()), remainingDuration);
+				animateImage(start, end, remainingDuration);
 			else
-				animateImage (mDisplayRect.left, 0.0f, remainingDuration);
-		else
+				animateImage(end, start, remainingDuration);
+		}
+		else {
 			if (mPanningDirection == panningDirection.B2T)
-				animateImage (mDisplayRect.top, mDisplayRect.top - (mDisplayRect.bottom - getImageViewHeight ()), remainingDuration);
+				animateImage(mDisplayRect.top, mDisplayRect.top - (mDisplayRect.bottom - getImageViewHeight()), remainingDuration);
 			else
-				animateImage (mDisplayRect.top, 0.0f, remainingDuration);
+				animateImage(mDisplayRect.top, 0.0f, remainingDuration);
+		}
 	}
 
 	private void changeWay() {
@@ -265,7 +269,7 @@ public class PanningImageViewAttacher {
 		}
 		mCurrentPlayTime = 0;
 		mTotalTime = 0;
-		Log.e (TAG, "changeWay: mPanningDirection is " + mPanningDirection);
+		Log.d (TAG, "changeWay: mPanningDirection is " + mPanningDirection);
 	}
 
 	private void animateImage (float start, float end, long duration) {
