@@ -102,6 +102,7 @@ public class PanningImageViewAttacher {
 
 		update ();
 
+		// NOTE: this ends up getting called a LOT - not sure why it's needed but working fine w/out it
 //		mImageView.addOnLayoutChangeListener (new View.OnLayoutChangeListener () {
 //			@Override
 //			public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -232,12 +233,18 @@ public class PanningImageViewAttacher {
 		Log.d (TAG, String.format ("animationController: mPanningDirection : %s, mDisplayRect : %s, duration : %d", mPanningDirection, mDisplayRect, remainingDuration));
 
 		if (mIsPortrait) {
-			float start = mDisplayRect.left;
-			float end = mDisplayRect.left - (mDisplayRect.right - getImageViewWidth());
-			if (mPanningDirection == panningDirection.R2L)
-				animateImage(start, end, remainingDuration);
-			else
-				animateImage(end, start, remainingDuration);
+			if (mIsPortrait) {
+				float end = mDisplayRect.left - (mDisplayRect.right - getImageViewWidth());
+				if (mPanningDirection == panningDirection.R2L)
+					animateImage(0, end, remainingDuration);
+				else
+					animateImage(end, 0, remainingDuration);
+			} else {
+				if (mPanningDirection == panningDirection.B2T)
+					animateImage(mDisplayRect.top, mDisplayRect.top - (mDisplayRect.bottom - getImageViewHeight()), remainingDuration);
+				else
+					animateImage(mDisplayRect.top, 0.0f, remainingDuration);
+			}
 		}
 		else {
 			if (mPanningDirection == panningDirection.B2T)
