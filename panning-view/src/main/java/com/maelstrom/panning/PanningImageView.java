@@ -24,7 +24,9 @@ public class PanningImageView extends ImageView {
 
 	public PanningImageView (Context context, AttributeSet attr, int defStyle) {
 		super (context, attr, defStyle);
-		readStyleParameters (context, attr);
+		if (!isInEditMode()) {
+			readStyleParameters(context, attr);
+		}
 		super.setScaleType (ScaleType.MATRIX);
 		mAttacher = new PanningImageViewAttacher (this, mPanningDurationInMs);
 	}

@@ -101,15 +101,6 @@ public class PanningImageViewAttacher {
 		mIsPortrait = imageView.getResources ().getConfiguration ().orientation == Configuration.ORIENTATION_PORTRAIT;
 
 		update ();
-
-		// NOTE: this ends up getting called a LOT - not sure why it's needed but working fine w/out it
-//		mImageView.addOnLayoutChangeListener (new View.OnLayoutChangeListener () {
-//			@Override
-//			public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//				Log.d(TAG, "onLayoutChange");
-//				update ();
-//			}
-//		});
 	}
 
 	/**
