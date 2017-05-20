@@ -263,7 +263,11 @@ public class PanningImageViewAttacher {
 	}
 
 	private void animateImage (float start, float end, long duration) {
-		Log.d (TAG, "startPanning : " + start + " to " + end + ", in " + duration + "ms");
+        if (mCurrentAnimator == null) {
+            Log.w(TAG, "animateImage: ANIMATOR = NULL " + start + " to " + end + ", in " + duration + "ms");
+            return;
+        }
+        Log.d(TAG, "animateImage : " + start + " to " + end + ", in " + duration + "ms");
 
 		mCurrentAnimator.setFloatValues (start, end);
 		mCurrentAnimator.setInterpolator (null);
